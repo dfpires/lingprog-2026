@@ -10,5 +10,8 @@ public class Main {
         // calcula o IMC
         float imc = peso / (altura * altura);
         System.out.println( nome + " seu IMC é " + imc);
+        if (imc < 18.5f) {
+            System.out.println("Você está abaixo do peso");
+        }
     }
 }
