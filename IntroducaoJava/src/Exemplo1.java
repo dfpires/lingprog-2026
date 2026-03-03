@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class Exemplo1 {
     public static void main(String args[]){
         // solicita entrada de dados
         Scanner entrada = new Scanner(System.in);
