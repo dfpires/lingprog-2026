@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class ExemploWhile {
     public static void main(String[] args){
         Scanner entrada = new Scanner(System.in);
         /*int condicao = 1;
