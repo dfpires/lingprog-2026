@@ -11,7 +11,8 @@ public class Exercicios {
     }
     // exe3. converte Celsius para Farenheint
     public static float converteTemp(float celsius){
-        return (celsius * 1.8f + 32);
+
+        return ((celsius * 1.8f) + 32);
     }
     // exe4.
     public static String avaliacao(float media){
@@ -24,6 +25,7 @@ public class Exercicios {
         else return "Reprovado";
     }
     public static void main(String[] args){
+        // exercício 1 e 2
         Scanner entrada = new Scanner(System.in);
         System.out.println("Informe a base");
         double base = entrada.nextDouble();
@@ -35,5 +37,16 @@ public class Exercicios {
             System.out.println("Base é par");
         }
         else System.out.println("Base é ímpar");
+
+        // Exe3
+        System.out.println("Informe temperatura em celsius");
+        float celsius = entrada.nextFloat();
+        System.out.println("Farenheint: " + converteTemp(celsius));
+
+        // Exe 4
+        System.out.println("Informe a média do aluno");
+        float media = entrada.nextFloat();
+        System.out.println("Situação do aluno " + avaliacao(media));
+
     }
 }

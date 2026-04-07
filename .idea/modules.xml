@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/EstruturaRepeticao/EstruturaRepeticao.iml" filepath="$PROJECT_DIR$/EstruturaRepeticao/EstruturaRepeticao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Funcoes/Funcoes.iml" filepath="$PROJECT_DIR$/Funcoes/Funcoes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IntroducaoJava/IntroducaoJava.iml" filepath="$PROJECT_DIR$/IntroducaoJava/IntroducaoJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Matrizes/Matrizes.iml" filepath="$PROJECT_DIR$/Matrizes/Matrizes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vetores/Vetores.iml" filepath="$PROJECT_DIR$/Vetores/Vetores.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lingprog-2026.iml" filepath="$PROJECT_DIR$/.idea/lingprog-2026.iml" />
+    </modules>
+  </component>
+</project>
