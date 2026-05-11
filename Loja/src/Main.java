@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class Main{
     public static void criarTabela(Connection conn) throws SQLException{
@@ -11,10 +12,15 @@ public class Main{
         Statement stmt = conn.createStatement();
         stmt.execute(sql); // executa comando SQL
         stmt.close(); // fecha instrução SQL
-        System.out.println("Tabela produtos criada com sucesso");
     }
-    public static void insere(Connection conn, String nome, double preco, int estoque)
+    public static void insere(Connection conn, Scanner sc)
                 throws SQLException {
+        System.out.println("Informe nome do produto");
+        String nome = sc.nextLine();
+        System.out.println("Informe preço do produto");
+        double preco = sc.nextDouble();
+        System.out.println("Informe estoque do produto");
+        int estoque = sc.nextInt();
         // cria SQL
         String sql = "INSERT INTO produtos (nome, preco, estoque) values (?, ?, ?)";
         // prepara uma instrução SQL
@@ -43,7 +49,9 @@ public class Main{
         }
     }
 
-    public static void remove(Connection conn, int id) throws SQLException{
+    public static void remove(Connection conn, Scanner sc) throws SQLException{
+        System.out.println("Informe id do produto");
+        int id = sc.nextInt();
         String sql = "DELETE FROM produtos WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, id);
@@ -55,8 +63,11 @@ public class Main{
         else System.out.println("ID não encontrado");
     }
 
-    public static void atualizarPreco(Connection con, int id,
-                         double novoPreco) throws SQLException {
+    public static void atualizarPreco(Connection con, Scanner sc) throws SQLException {
+        System.out.println("Informe id do produto");
+        int id = sc.nextInt();
+        System.out.println("Informe novo preço");
+        Double novoPreco = sc.nextDouble();
         String sql = "UPDATE produtos SET preco = ? WHERE id = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setDouble(1, novoPreco);
@@ -69,6 +80,26 @@ public class Main{
             System.out.println("Produto não encontrado");
         }
     }
+    public static void exibirMenu(){
+        System.out.println("\n CRUD de Produtos");
+        System.out.println("1. Listar Produtos");
+        System.out.println("2. Inserir Produto");
+        System.out.println("3. Atualizar preço");
+        System.out.println("4. Remover produto");
+        System.out.println("0. Sair");
+        System.out.println("Opção: ");
+    }
+    public static void processarOpcao(Connection conn, Scanner sc, int opcao)
+            throws SQLException{
+        switch(opcao){
+            case 1: consulta(conn); break;
+            case 2: insere(conn, sc); break;
+            case 3: atualizarPreco(conn, sc); break;
+            case 4: remove(conn, sc); break;
+            case 0: System.out.println("Encerrando ..."); break;
+            default: System.out.println("Opção inválida");
+        }
+    }
     public static void main(String[] args){
         String url = "jdbc:postgresql://localhost:5432/lojad";
         try { // tenta se conectar no banco de dados
@@ -77,11 +108,15 @@ public class Main{
             System.out.println("Conexão com sucesso");
             // cria a tabela produto
             criarTabela(conn);
-           // insere(conn, "placa de vídeo", 1299, 1);
-            consulta(conn);
-           // remove(conn, 3);
-            atualizarPreco(conn, 2, 109);
-            consulta(conn);
+            Scanner sc = new Scanner(System.in);
+            int opcao = 1;
+            do{
+                exibirMenu();
+                opcao = sc.nextInt();
+                sc.nextLine();
+                processarOpcao(conn, sc, opcao);
+            }
+            while (opcao != 0);
         }
         catch (SQLException e){ // caso dê erro, desvia pra cá
             System.out.println("Erro ao conectar com o banco " + e.getMessage());
