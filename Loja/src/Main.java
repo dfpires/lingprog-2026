@@ -26,6 +26,49 @@ public class Main{
         System.out.println("Produto inserido com sucesso");
         ps.close();
     }
+    public static void consulta(Connection conn) throws SQLException{
+        // cria o comando SQL
+        String sql = "SELECT * FROM produtos ORDER BY nome";
+        Statement stmt = conn.createStatement();
+        // executa a consulta no banco e armazena o resultado em rs
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()){
+            // recupera o valor de cada coluna
+            int id = rs.getInt("id");
+            String nome = rs.getString("nome");
+            double preco = rs.getDouble("preco");
+            int estoque = rs.getInt("estoque");
+            // mostra os registros da consulta
+            System.out.printf("[%d] %s - R$ %.2f (estoque: %d)%n", id, nome, preco, estoque);
+        }
+    }
+
+    public static void remove(Connection conn, int id) throws SQLException{
+        String sql = "DELETE FROM produtos WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id);
+        int linhasAfetadas = ps.executeUpdate();
+        ps.close();
+        if (linhasAfetadas > 0){
+            System.out.println("Produto removido");
+        }
+        else System.out.println("ID não encontrado");
+    }
+
+    public static void atualizarPreco(Connection con, int id,
+                         double novoPreco) throws SQLException {
+        String sql = "UPDATE produtos SET preco = ? WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDouble(1, novoPreco);
+        ps.setInt(2, id);
+        int linhasAfetadas = ps.executeUpdate();
+        if (linhasAfetadas > 0){
+            System.out.println("Preço atualizado com sucesso");
+        }
+        else {
+            System.out.println("Produto não encontrado");
+        }
+    }
     public static void main(String[] args){
         String url = "jdbc:postgresql://localhost:5432/lojad";
         try { // tenta se conectar no banco de dados
@@ -34,7 +77,11 @@ public class Main{
             System.out.println("Conexão com sucesso");
             // cria a tabela produto
             criarTabela(conn);
-            insere(conn, "mouse", 149, 3);
+           // insere(conn, "placa de vídeo", 1299, 1);
+            consulta(conn);
+           // remove(conn, 3);
+            atualizarPreco(conn, 2, 109);
+            consulta(conn);
         }
         catch (SQLException e){ // caso dê erro, desvia pra cá
             System.out.println("Erro ao conectar com o banco " + e.getMessage());
