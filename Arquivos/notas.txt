@@ -1,0 +1,3 @@
+Ana: 8.0
+Bruno: 5.0
+Carlos: 10.0
